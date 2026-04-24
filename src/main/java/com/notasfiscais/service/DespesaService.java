@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Exception.class)
 public class DespesaService {
 
-    private static final DateTimeFormatter MONTH_YEAR_FMT = DateTimeFormatter.ofPattern("MM/yyyy");
+    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATE_TIME_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private final DespesaRepository despesaRepository;
@@ -58,8 +58,7 @@ public class DespesaService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Pessoa não encontrada"));
 
         Arquivo arqSalvo = arquivoService.salvar(arquivo);
-        LocalDate dtDespesa = LocalDate.parse(dtDespesaStr + "-01",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dtDespesa = LocalDate.parse(dtDespesaStr, DATE_FMT);
 
         DescricaoDespesa despesa = DescricaoDespesa.builder()
                 .arquivo(arqSalvo)
@@ -82,8 +81,7 @@ public class DespesaService {
             arquivoService.substituir(despesa.getArquivo(), novoArquivo);
         }
         if (dtDespesaStr != null && !dtDespesaStr.isBlank()) {
-            despesa.setDtDespesa(LocalDate.parse(dtDespesaStr + "-01",
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            despesa.setDtDespesa(LocalDate.parse(dtDespesaStr, DATE_FMT));
         }
         if (vlDespesa != null) {
             despesa.setVlDespesa(vlDespesa);
@@ -125,7 +123,7 @@ public class DespesaService {
                 .cdPessoa(d.getPessoa().getCdPessoa().longValue())
                 .nmArquivo(d.getArquivo().getNmArquivo())
                 .tpArquivo(d.getArquivo().getTpArquivo())
-                .dtDespesa(d.getDtDespesa().format(MONTH_YEAR_FMT))
+                .dtDespesa(d.getDtDespesa().format(DATE_FMT))
                 .vlDespesa(d.getVlDespesa())
                 .cdArquivo(d.getArquivo().getCdArquivo().longValue())
                 .build();
@@ -138,7 +136,7 @@ public class DespesaService {
                 .cdPessoa(d.getPessoa().getCdPessoa().longValue())
                 .nmArquivo(d.getArquivo().getNmArquivo())
                 .tpArquivo(d.getArquivo().getTpArquivo())
-                .dtDespesa(d.getDtDespesa().format(MONTH_YEAR_FMT))
+                .dtDespesa(d.getDtDespesa().format(DATE_FMT))
                 .vlDespesa(d.getVlDespesa())
                 .cdArquivo(d.getArquivo().getCdArquivo().longValue())
                 .dsDespesa(d.getDsDespesa())
