@@ -11,5 +11,6 @@ public class LoginResponse {
     private String token;
     private String nmPessoa;
     private Long cdPessoa;
+    private Long cdWebUser;
     private Integer role;
 }

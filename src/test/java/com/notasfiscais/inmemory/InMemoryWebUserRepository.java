@@ -37,6 +37,11 @@ public class InMemoryWebUserRepository implements IWebUserRepository {
         return saved;
     }
 
+    @Override
+    public WebUser getById(Integer cdWebUser) {
+        return store.get(cdWebUser);
+    }
+
     private final Map<String, WebUser> emailIndex = new HashMap<>();
 }
 

@@ -39,6 +39,7 @@ public class JwtService {
     }
     public String extractEmail(String token) { return getClaims(token).getSubject(); }
     public Long extractCdPessoa(String token) { return getClaims(token).get("cdPessoa", Long.class); }
+    public Long extractCdWebUser(String token) { return getClaims(token).get("cdWebUser", Long.class); }
     public Integer extractRole(String token) { return getClaims(token).get("role", Integer.class); }
     private Claims getClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();

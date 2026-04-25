@@ -36,6 +36,7 @@ public class LoginUseCase {
                     .token(token)
                     .nmPessoa(pessoa.getNmPessoa())
                     .cdPessoa(pessoa.getCdPessoa().longValue())
+                    .cdWebUser(webUser.getCdWebUser().longValue())
                     .role(webUser.getTpResponsabilidade())
                     .build();
         } catch (WebUserException e) {
