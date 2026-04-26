@@ -43,11 +43,13 @@ public class UpdateUsuarioUseCase {
             throw new RecursoNaoEncontradoException("Usuário não encontrado");
         }
 
+        String nrCep = request.getNrCep() != null ? request.getNrCep().replaceAll("[^\\d]", "") : null;
+
         enderecoRepository.save(new Endereco(
                 current.getCdEndereco(),
                 request.getNmLogradouro(),
                 request.getDsEndereco(),
-                request.getNrCep(),
+                nrCep,
                 request.getNrEndereco(),
                 request.getBairro(),
                 request.getCidade(),

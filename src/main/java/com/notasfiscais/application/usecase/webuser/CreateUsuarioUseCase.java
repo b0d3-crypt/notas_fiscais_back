@@ -35,11 +35,13 @@ public class CreateUsuarioUseCase {
     public Integer execute(CreateUsuarioRequest request) throws Exception {
         validar(request);
 
+        String nrCep = request.getNrCep() != null ? request.getNrCep().replaceAll("[^\\d]", "") : null;
+
         Endereco endereco = enderecoRepository.save(new Endereco(
                 null,
                 request.getNmLogradouro(),
                 request.getDsEndereco(),
-                request.getNrCep(),
+                nrCep,
                 request.getNrEndereco(),
                 request.getBairro(),
                 request.getCidade(),
